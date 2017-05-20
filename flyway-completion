@@ -1,0 +1,7 @@
+_flyway()
+{
+  local cur=${COMP_WORDS[COMP_CWORD]}
+  COMPREPLY=( $(compgen -W "migrate info clean validate baseline repair" -- $cur))
+}
+
+complete -F _flyway flyway 
