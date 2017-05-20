@@ -1,7 +1,62 @@
+#!/bin/bash
+
+echo "......Loading flyway completions.  SystemXero"
+
+# function_exists()
+# {
+# 	declare -F $1 > /dev/null
+# 	return $?
+# }
+#
+# function_exists _get_comp_words_by_ref ||
+# _get_comp_words_by_ref ()
+# {
+#     local exclude cur_ words_ cword_;
+#     if [ "$1" = "-n" ]; then
+#         exclude=$2;
+#         shift 2;
+#     fi;
+#     __git_reassemble_comp_words_by_ref "$exclude";
+#     cur_=${words_[cword_]};
+#     while [ $# -gt 0 ]; do
+#         case "$1" in
+#             cur)
+#                 cur=$cur_
+#             ;;
+#             prev)
+#                 prev=${words_[$cword_-1]}
+#             ;;
+#             words)
+#                 words=("${words_[@]}")
+#             ;;
+#             cword)
+#                 cword=$cword_
+#             ;;
+#         esac;
+#         shift;
+#     done
+# }
+
 _flyway()
 {
-  local cur=${COMP_WORDS[COMP_CWORD]}
-  COMPREPLY=( $(compgen -W "migrate info clean validate baseline repair" -- $cur))
+  local cur prev opts commands
+  COMPREPLY=()
+
+  local IFS=$'\n|'
+  local opts="-driver|-url|-user|-password"
+  #-schemas|-table|-locations|-resolvers|-skipDefaultResolvers|-sqlMigrationPrefix|-repeatableSqlMigrationPrefix|-sqlMigrationSeparator|-sqlMigrationSuffix|-mixed|-encoding|-placeholderReplacement|-placeholders|-placeholderPrefix|-placeholderSuffix|-installedBy|-target|-outOfOrder|-callbacks|-skipDefaultCallbacks|-validateOnMigrate|-ignoreMissingMigrations|-ignoreFutureMigrations|-cleanOnValidationError|-cleanDisabled|-baselineVersion|-baselineDescription|-baselineOnMigrate|-configFile|-configFileEncoding|-jarDirs"
+  local commands="migrate|info|clean|validate|baseline|repair"
+
+  cur="${COMP_WORDS[COMP_CWORD]}"
+  prev="${COMP_WORDS[COMP_CWORD-1]}"
+
+  if [[ ${cur} == -* ]] ; then
+    COMPREPLY=( $(compgen -W "${opts}" -S '=' -- ${cur}) )
+    return 0
+  else
+    COMPREPLY=( $(compgen -W "${commands}" -S ' ' -- ${cur}) )
+    return 0
+  fi
 }
 
-complete -F _flyway flyway 
+complete -o default -F _flyway -o nospace flyway
