@@ -43,8 +43,7 @@ _flyway()
   COMPREPLY=()
 
   local IFS=$'\n|'
-  local opts="-driver|-url|-user|-password"
-  #-schemas|-table|-locations|-resolvers|-skipDefaultResolvers|-sqlMigrationPrefix|-repeatableSqlMigrationPrefix|-sqlMigrationSeparator|-sqlMigrationSuffix|-mixed|-encoding|-placeholderReplacement|-placeholders|-placeholderPrefix|-placeholderSuffix|-installedBy|-target|-outOfOrder|-callbacks|-skipDefaultCallbacks|-validateOnMigrate|-ignoreMissingMigrations|-ignoreFutureMigrations|-cleanOnValidationError|-cleanDisabled|-baselineVersion|-baselineDescription|-baselineOnMigrate|-configFile|-configFileEncoding|-jarDirs"
+  local opts="-driver|-url|-user|-password|-schemas|-table|-locations|-resolvers|-skipDefaultResolvers|-sqlMigrationPrefix|-repeatableSqlMigrationPrefix|-sqlMigrationSeparator|-sqlMigrationSuffix|-mixed|-encoding|-placeholderReplacement|-placeholders|-placeholderPrefix|-placeholderSuffix|-installedBy|-target|-outOfOrder|-callbacks|-skipDefaultCallbacks|-validateOnMigrate|-ignoreMissingMigrations|-ignoreFutureMigrations|-cleanOnValidationError|-cleanDisabled|-baselineVersion|-baselineDescription|-baselineOnMigrate|-configFile|-configFileEncoding|-jarDirs"
   local commands="migrate|info|clean|validate|baseline|repair"
 
   cur="${COMP_WORDS[COMP_CWORD]}"
